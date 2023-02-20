@@ -20,6 +20,8 @@ public class RelatedPerson {
     String dateConfirmed;
     @Field("is_pep")
     boolean isPep;
+    @Field("date_finished")
+    String dateFinished;
     @Field("person_uk")
     String personUk;
     @Field("relationship_type")

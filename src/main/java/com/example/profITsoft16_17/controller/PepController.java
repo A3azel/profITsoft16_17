@@ -1,11 +1,14 @@
 package com.example.profITsoft16_17.controller;
 
 import com.example.profITsoft16_17.dto.PepDTO;
+import com.example.profITsoft16_17.dto.PopularNameResponse;
 import com.example.profITsoft16_17.service.serviceInterface.PepService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/v1/pep", produces="application/json")
@@ -24,9 +27,8 @@ public class PepController {
     }
 
     @GetMapping("/popular/name")
-    public ResponseEntity<String> getPublicFigure(){
-        System.out.println(pepService.getMostPopularName());
-        return ResponseEntity.ok("ok");
+    public ResponseEntity<List<PopularNameResponse>> getPublicFigure(){
+        return ResponseEntity.ok(pepService.getMostPopularName());
     }
 
     @GetMapping("/fido")

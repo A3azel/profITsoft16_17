@@ -10,8 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.*;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
@@ -37,17 +40,16 @@ public class PepServiceI implements PepService {
 
     @Override
     @Transactional(readOnly = true)
-    public PopularNameResponse getMostPopularName() {
+    public List<PopularNameResponse> getMostPopularName() {
         GroupOperation nameCount = group("first_name")
                 .count().as("nameCount");
         SortOperation sortNameCountASC = sort(Sort.by(Sort.Direction.DESC, "nameCount"));
-        LimitOperation limitToFirstTenName = limit(1);
+        MatchOperation filterIsPepAlive= match(Criteria.where("is_pep").is(true));
+        LimitOperation limitToFirstTenName = limit(10);
         ProjectionOperation projectToMatchModel = project()
-                .andExpression("_id").as("popularName")
+                .andExpression("first_name").as("popularName")
                 .andExpression("nameCount").as("popularNameCount");
-        Aggregation aggregation = newAggregation(nameCount, sortNameCountASC, limitToFirstTenName, projectToMatchModel);
-        System.out.println("авыа");
-        AggregationResults<PopularNameResponse> aggregationResults = mongoTemplate.aggregate(aggregation, "Test", PopularNameResponse.class);
-        return aggregationResults.getUniqueMappedResult();
+        Aggregation aggregation = newAggregation(filterIsPepAlive, nameCount, sortNameCountASC, limitToFirstTenName, projectToMatchModel);
+        return mongoTemplate.aggregate(aggregation, "Test", PopularNameResponse.class).getMappedResults();
     }
 }

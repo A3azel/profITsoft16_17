@@ -2,6 +2,7 @@ package com.example.profITsoft16_17.controller;
 
 import com.example.profITsoft16_17.dto.PepDTO;
 import com.example.profITsoft16_17.dto.PopularNameResponse;
+import com.example.profITsoft16_17.service.serviceInterface.FileService;
 import com.example.profITsoft16_17.service.serviceInterface.PepService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,15 +16,17 @@ import java.util.List;
 public class PepController {
 
     private final PepService pepService;
+    private final FileService fileService;
 
     @Autowired
-    public PepController(PepService pepService) {
+    public PepController(PepService pepService, FileService fileService) {
         this.pepService = pepService;
+        this.fileService = fileService;
     }
 
     @PostMapping("/file")
     public void downloadFile(@RequestPart("file") MultipartFile jsonStringsFile){
-
+        fileService.downloadParseAndSaveFile(jsonStringsFile);
     }
 
     @GetMapping("/popular/name")

@@ -1,25 +1,27 @@
 package com.example.profITsoft16_17.entity;
 
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.FieldDefaults;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@ToString
 @FieldDefaults(level= AccessLevel.PRIVATE)
 public class RelatedCountry {
-    @Field("date_established")
+    @JsonProperty("date_established")
     String dateEstablished;
-    @Field("date_finished")
+    @JsonProperty("date_finished")
     String dateFinished;
-    @Field("date_confirmed")
+    @JsonProperty("date_confirmed")
     String dateConfirmed;
-    @Field("to_country_en")
+    @JsonProperty("to_country_en")
     String toCountryEn;
-    @Field("to_country_uk")
+    @JsonProperty("to_country_uk")
     String toCountryUk;
-    @Field("relationship_type")
+    @JsonProperty("relationship_type")
     String relationshipType;
 }

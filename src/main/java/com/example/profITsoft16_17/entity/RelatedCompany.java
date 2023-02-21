@@ -1,39 +1,41 @@
 package com.example.profITsoft16_17.entity;
 
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.FieldDefaults;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@ToString
 @FieldDefaults(level= AccessLevel.PRIVATE)
 public class RelatedCompany {
-    @Field("relationship_type_en")
+    @JsonProperty("relationship_type_en")
     String relationshipTypeEn;
-    @Field("to_company_short_en")
+    @JsonProperty("to_company_short_en")
     String toCompanyShortEn;
-    @Field("date_established")
+    @JsonProperty("date_established")
     String dateEstablished;
-    @Field("to_company_edrpou")
+    @JsonProperty("to_company_edrpou")
     String toCompanyEdrpou;
-    @Field("to_company_founded")
+    @JsonProperty("to_company_founded")
     String toCompanyFounded;
-    @Field("date_finished")
+    @JsonProperty("date_finished")
     String dateFinished;
-    @Field("to_company_is_state")
+    @JsonProperty("to_company_is_state")
     boolean toCompanyIsState;
-    @Field("share")
+    @JsonProperty("share")
     String share;
-    @Field("date_confirmed")
+    @JsonProperty("date_confirmed")
     String dateConfirmed;
-    @Field("to_company_uk")
+    @JsonProperty("to_company_uk")
     String toCompanyUk;
-    @Field("to_company_short_uk")
+    @JsonProperty("to_company_short_uk")
     String toCompanyShortUk;
-    @Field("to_company_en")
+    @JsonProperty("to_company_en")
     String toCompanyEn;
-    @Field("relationship_type_uk")
+    @JsonProperty("relationship_type_uk")
     String relationshipTypeUk;
 }

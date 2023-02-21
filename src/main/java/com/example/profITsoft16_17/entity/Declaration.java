@@ -1,34 +1,36 @@
 package com.example.profITsoft16_17.entity;
 
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.FieldDefaults;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@ToString
 @FieldDefaults(level= AccessLevel.PRIVATE)
 public class Declaration {
-    @Field("position_en")
+    @JsonProperty("position_en")
     String positionEn;
-    @Field("url")
+    @JsonProperty("url")
     String url;
-    @Field("income")
+    @JsonProperty("income")
     String income;
-    @Field("region_uk")
+    @JsonProperty("region_uk")
     String regionUk;
-    @Field("office_en")
+    @JsonProperty("office_en")
     String officeEn;
-    @Field("position_uk")
+    @JsonProperty("position_uk")
     String positionUk;
-    @Field("year")
+    @JsonProperty("year")
     String year;
-    @Field("office_uk")
+    @JsonProperty("office_uk")
     String officeUk;
-    @Field("region_en")
+    @JsonProperty("region_en")
     String regionEn;
-    @Field("family_income")
+    @JsonProperty("family_income")
     String familyIncome;
 }

@@ -1,102 +1,108 @@
 package com.example.profITsoft16_17.entity;
 
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@ToString
 @FieldDefaults(level= AccessLevel.PRIVATE)
 @Document("Test")
 public class Pep {
     @Id
     String id;
-    @Field("also_known_as_en")
+    @JsonProperty("also_known_as_en")
     String alsoKnownAsEn;
-    @Field("date_of_birth")
+    @JsonProperty("date_of_birth")
     String dateOfBirth;
-    @Field("died")
+    @JsonProperty("died")
     boolean died;
-    @Field("first_name")
+    @JsonProperty("first_name")
     String firstName;
-    @Field("first_name_en")
+    @JsonProperty("first_name_en")
     String firstNameEn;
-    @Field("full_name")
+    @JsonProperty("full_name")
     String fullName;
-    @Field("full_name_en")
+    @JsonProperty("full_name_en")
     String fullNameEn;
-    @Field("is_pep")
+    @JsonProperty("is_pep")
     boolean isPep;
-    @Field("last_name")
+    @JsonProperty("last_name")
     String lastName;
-    @Field("last_name_en")
+    @JsonProperty("last_name_en")
     String lastNameEn;
-    @Field("names")
+    @JsonProperty("names")
     String names;
-    @Field("patronymic")
+    @JsonProperty("patronymic")
     String patronymic;
-    @Field("patronymic_en")
+    @JsonProperty("patronymic_en")
     String patronymicEn;
-    @Field("photo")
+    @JsonProperty("photo")
     String photo;
-    @Field("related_persons")
+    @JsonProperty("related_persons")
     List<RelatedPerson> relatedPersons;
-    @Field("type_of_official")
+    @JsonProperty("type_of_official")
     String typeOfOfficial;
-    @Field("type_of_official_en")
+    @JsonProperty("type_of_official_en")
     String typeOfOfficialEn;
-    @Field("url")
+    @JsonProperty("url")
     String url;
-    @Field("last_job_title")
+    @JsonProperty("last_job_title")
     String lastJobTitle;
-    @Field("last_job_title_en")
+    @JsonProperty("last_job_title_en")
     String lastJobTitleEn;
-    @Field("last_workplace")
+    @JsonProperty("last_workplace")
     String lastWorkplace;
-    @Field("last_workplace_en")
+    @JsonProperty("last_workplace_en")
     String lastWorkplaceEn;
-    @Field("related_companies")
+    @JsonProperty("related_companies")
     List<RelatedCompany> relatedCompanies;
-    @Field("also_known_as_uk")
+    @JsonProperty("also_known_as_uk")
     String alsoKnownAsUk;
-    @Field("declarations")
+    @JsonProperty("declarations")
     List<Declaration> declarations;
-    @Field("reputation_assets_en")
+    @JsonProperty("reputation_assets_en")
     String reputationAssetsEn;
-    @Field("reputation_assets_uk")
+    @JsonProperty("reputation_assets_uk")
     String reputationAssetsUk;
-    @Field("reputation_convictions_en")
+    @JsonProperty("reputation_convictions_en")
     String reputationConvictionsEn;
-    @Field("reputation_convictions_uk")
+    @JsonProperty("reputation_convictions_uk")
     String reputationConvictionsUk;
-    @Field("reputation_crimes_en")
+    @JsonProperty("reputation_crimes_en")
     String reputationCrimesEn;
-    @Field("reputation_crimes_uk")
+    @JsonProperty("reputation_crimes_uk")
     String reputationCrimesUk;
-    @Field("reputation_manhunt_en")
+    @JsonProperty("reputation_manhunt_en")
     String reputationManhuntEn;
-    @Field("reputation_manhunt_uk")
+    @JsonProperty("reputation_manhunt_uk")
     String reputationManhuntUk;
-    @Field("reputation_sanctions_en")
+    @JsonProperty("reputation_sanctions_en")
     String reputationSanctionsEn;
-    @Field("reputation_sanctions_uk")
+    @JsonProperty("reputation_sanctions_uk")
     String reputationSanctionsUk;
-    @Field("wiki_en")
+    @JsonProperty("wiki_en")
     String wikiEn;
-    @Field("wiki_uk")
+    @JsonProperty("wiki_uk")
     String wikiUk;
-    @Field("reason_of_termination")
+    @JsonProperty("city_of_birth_uk")//
+    String cityOfBirthUk;
+    @JsonProperty("city_of_birth_en")//
+    String cityOfBirthEn;
+    @JsonProperty("reason_of_termination")
     String reasonOfTermination;
-    @Field("reason_of_termination_en")
+    @JsonProperty("reason_of_termination_en")
     String reasonOfTerminationEn;
-    @Field("termination_date_human")
+    @JsonProperty("termination_date_human")
     String terminationDateHuman;
-    @Field("related_countries")
+    @JsonProperty("related_countries")
     List<RelatedCountry> relatedCountries;
 }

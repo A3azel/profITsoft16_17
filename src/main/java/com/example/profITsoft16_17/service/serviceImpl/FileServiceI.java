@@ -3,7 +3,8 @@ package com.example.profITsoft16_17.service.serviceImpl;
 import com.example.profITsoft16_17.entity.Pep;
 import com.example.profITsoft16_17.repository.PepRepository;
 import com.example.profITsoft16_17.service.serviceInterface.FileService;
-import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,15 +35,14 @@ public class FileServiceI implements FileService {
 
         File jsonDirectory = new File(SAVE_DIRECTORY);
         File[] filesList = jsonDirectory.listFiles();
-        if(filesList==null){
+        if (filesList == null) {
             System.out.println("Selected directory is empty");
             return;
         }
 
-        for(File jsonFile: filesList){
-            if(jsonFile.getName().endsWith("json")) {
-                List<List<Pep>> saveList = splitListToSave(parseJson(jsonFile));
-                saveList.forEach(pepRepository::saveAll);
+        for (File jsonFile : filesList) {
+            if (jsonFile.getName().endsWith("json")) {
+                parseJson(jsonFile);
             }
         }
     }
@@ -72,29 +72,22 @@ public class FileServiceI implements FileService {
         }
     }
 
-    private List<List<Pep>> splitListToSave(List<Pep> pepList){
-        int size = pepList.size();
-
-        int totalCount = (int) Math.ceil(size / BUFFER_SIZE);
-
-        List<List<Pep>> listOfSublist = new ArrayList<>();
-        for (int i = 0; i < totalCount; i++) {
-            int startPoint = i*BUFFER_SIZE;
-            int endPoint = Math.min(i * BUFFER_SIZE + BUFFER_SIZE, size);
-            listOfSublist.add(pepList.subList(startPoint, endPoint));
-        }
-        return listOfSublist;
-    }
-
-    private List<Pep> parseJson(File jsonFile) {
-        ObjectMapper mapper = new ObjectMapper();
+    private void parseJson(File jsonFile) {
+        ObjectMapper objectMapper = new ObjectMapper();
         List<Pep> pepList = new ArrayList<>();
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(jsonFile))) {
-            pepList = mapper.readValue(bufferedReader, new TypeReference<>() {});
-            return pepList;
-        } catch (IOException fileNotFoundException) {
-            fileNotFoundException.printStackTrace();
-        }
-        return pepList;
+        try {
+            JsonParser jsonParser = objectMapper.createParser(jsonFile);
+            jsonParser.nextToken();
+            while (jsonParser.nextToken() != JsonToken.END_ARRAY){
+                Pep pep = objectMapper.readValue(jsonParser,Pep.class);
+                pepList.add(pep);
+                if(pepList.size()>=1000){
+                    pepRepository.saveAll(pepList);
+                    pepList.clear();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
+}

@@ -86,7 +86,6 @@ public class FileServiceI implements FileService {
         return listOfSublist;
     }
 
-
     private List<Pep> parseJson(File jsonFile) {
         ObjectMapper mapper = new ObjectMapper();
         List<Pep> pepList = new ArrayList<>();

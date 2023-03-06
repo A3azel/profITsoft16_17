@@ -41,8 +41,8 @@ public class FileServiceI implements FileService {
 
         for(File jsonFile: filesList){
             if(jsonFile.getName().endsWith("json")) {
-                List<Pep> pepList = parseJson(jsonFile);
-                pepRepository.saveAll(pepList);
+                List<List<Pep>> saveList = splitListToSave(parseJson(jsonFile));
+                saveList.forEach(pepRepository::saveAll);
             }
         }
     }
@@ -72,6 +72,20 @@ public class FileServiceI implements FileService {
         }
     }
 
+    private List<List<Pep>> splitListToSave(List<Pep> pepList){
+        int size = pepList.size();
+
+        int totalCount = (int) Math.ceil(size / BUFFER_SIZE);
+
+        List<List<Pep>> listOfSublist = new ArrayList<>();
+        for (int i = 0; i < totalCount; i++) {
+            int startPoint = i*BUFFER_SIZE;
+            int endPoint = Math.min(i * BUFFER_SIZE + BUFFER_SIZE, size);
+            listOfSublist.add(pepList.subList(startPoint, endPoint));
+        }
+        return listOfSublist;
+    }
+
     private List<Pep> parseJson(File jsonFile) {
         ObjectMapper mapper = new ObjectMapper();
         List<Pep> pepList = new ArrayList<>();
@@ -82,5 +96,5 @@ public class FileServiceI implements FileService {
             fileNotFoundException.printStackTrace();
         }
         return pepList;
+        }
     }
-}
